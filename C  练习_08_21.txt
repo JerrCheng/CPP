@@ -1,0 +1,60 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<iostream>
+using namespace std;
+
+//inline int ADD(int a, int b)
+//{
+//	return a + b;
+//}
+//
+//
+//int main()
+//{
+//	int c=ADD(1, 2);
+//	cout << c << endl;
+//}
+
+//int a = 10;
+//auto b = &a;
+//auto* c = b;
+//
+//int main()
+//{
+//	int a[] = { 0,1,2,3,4 };
+//	for (auto e : a)
+//	{
+//		cout << e << " ";
+//	}
+//	cout << endl;
+//}
+
+//int main()
+//{
+//	int x = 10;
+//	auto a = &x;  // int*
+//	auto* b = &x;  // int* 强调一定要传指针
+//	auto& c = x;   // int 强调c是一个引用
+//	cout << typeid(a).name() << endl;
+//	cout << typeid(b).name() << endl;
+//	cout << typeid(c).name() << endl;
+//
+//	return 0;
+//}
+	
+
+void f(int)  //形参可以不写
+{
+    cout << "f(int)" << endl;
+}
+void f(int*)
+{
+    cout << "f(int*)" << endl;
+}
+int main()
+{
+    int* p = NULL;
+    f(0);
+    f(NULL);          //这里被替换为0
+    f(p);
+    return 0;
+}
