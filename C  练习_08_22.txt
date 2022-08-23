@@ -1,0 +1,163 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<iostream>
+#include"f.h"
+using namespace std;
+//
+////inline int ADD(int a, int b)
+////{
+////	return a + b;
+////}
+////
+////
+////int main()
+////{
+////	int c=ADD(1, 2);
+////	cout << c << endl;
+////}
+//
+////int a = 10;
+////auto b = &a;
+////auto* c = b;
+////
+////int main()
+////{
+////	int a[] = { 0,1,2,3,4 };
+////	for (auto e : a)
+////	{
+////		cout << e << " ";
+////	}
+////	cout << endl;
+////}
+//
+////int main()
+////{
+////	int x = 10;
+////	auto a = &x;  // int*
+////	auto* b = &x;  // int* 强调一定要传指针
+////	auto& c = x;   // int 强调c是一个引用
+////	cout << typeid(a).name() << endl;
+////	cout << typeid(b).name() << endl;
+////	cout << typeid(c).name() << endl;
+////
+////	return 0;
+////}
+//	
+//
+//void f(int)  //形参可以不写
+//{
+//    cout << "f(int)" << endl;
+//}
+//void f(int*)
+//{
+//    cout << "f(int*)" << endl;
+//}
+//int main()
+//{
+//    int* p = NULL;
+//    f(0);
+//    f(NULL);          //这里被替换为0
+//    f(p);
+//    return 0;
+//}
+
+// /*c*/
+//struct Stack
+//{
+//	int* a;
+//	int top;
+//	int capacity;
+//};
+//
+//void StackInit(struct Stack* ps);
+//void StackPush(struct Stack* ps, int x);
+//void StackPop(struct Stack* ps);
+
+
+////  兼容c struct 语法
+//// C++同时将struct 升级成了类
+//
+//// 成员变量
+//// 成员函数
+//struct Stack
+//{
+//	void Init()
+//	{
+//		a = 0;
+//		top = capacity = 0;
+//	}
+//	
+//	void Push(int x)
+//	{
+//		// ...
+//	}
+//
+//	void Pop()
+//	{
+//		// ...
+//	}
+//
+//	int* a;
+//	int top;
+//	int capacity;
+//};
+
+
+// C
+//typedef struct ListNode_C
+//{
+//	struct ListNode_C* next;
+//	int val;
+//}LTNode;
+//
+//// C++
+//struct ListNode_CPP
+//{
+//	ListNode_CPP* next;
+//	int val;
+//	void Init()
+//	{
+//		a = 0;
+//		top = capacity = 0;
+//	}
+//
+//	void Push(int x)
+//	{
+//		// ...
+//	}
+//
+//	void Pop()
+//	{
+//		// ...
+//	}
+//
+//	int* a;
+//	int top;
+//	int capacity;
+//};
+//
+//int main()
+//{
+//	LTNode st1;
+//
+//	ListNode_CPP st2;
+//
+//	st2.Init();
+//	st2.Push(1);
+//	st2.Push(2);
+//	st2.Push(3);
+//
+//
+//	return 0;
+//}
+
+int main()
+{
+
+Queue q;
+q.Init();
+q.Push(1);
+q.Push(2);
+q.Push(3);
+
+return 0;
+}
