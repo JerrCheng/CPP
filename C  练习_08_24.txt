@@ -1,0 +1,321 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<iostream>
+#include"f.h"
+using namespace std;
+//
+////inline int ADD(int a, int b)
+////{
+////	return a + b;
+////}
+////
+////
+////int main()
+////{
+////	int c=ADD(1, 2);
+////	cout << c << endl;
+////}
+//
+////int a = 10;
+////auto b = &a;
+////auto* c = b;
+////
+////int main()
+////{
+////	int a[] = { 0,1,2,3,4 };
+////	for (auto e : a)
+////	{
+////		cout << e << " ";
+////	}
+////	cout << endl;
+////}
+//
+////int main()
+////{
+////	int x = 10;
+////	auto a = &x;  // int*
+////	auto* b = &x;  // int* 强调一定要传指针
+////	auto& c = x;   // int 强调c是一个引用
+////	cout << typeid(a).name() << endl;
+////	cout << typeid(b).name() << endl;
+////	cout << typeid(c).name() << endl;
+////
+////	return 0;
+////}
+//	
+//
+//void f(int)  //形参可以不写
+//{
+//    cout << "f(int)" << endl;
+//}
+//void f(int*)
+//{
+//    cout << "f(int*)" << endl;
+//}
+//int main()
+//{
+//    int* p = NULL;
+//    f(0);
+//    f(NULL);          //这里被替换为0
+//    f(p);
+//    return 0;
+//}
+
+// /*c*/
+//struct Stack
+//{
+//	int* a;
+//	int top;
+//	int capacity;
+//};
+//
+//void StackInit(struct Stack* ps);
+//void StackPush(struct Stack* ps, int x);
+//void StackPop(struct Stack* ps);
+
+
+////  兼容c struct 语法
+//// C++同时将struct 升级成了类
+//
+//// 成员变量
+//// 成员函数
+//struct Stack
+//{
+//	void Init()
+//	{
+//		a = 0;
+//		top = capacity = 0;
+//	}
+//	
+//	void Push(int x)
+//	{
+//		// ...
+//	}
+//
+//	void Pop()
+//	{
+//		// ...
+//	}
+//
+//	int* a;
+//	int top;
+//	int capacity;
+//};
+
+
+// C
+//typedef struct ListNode_C
+//{
+//	struct ListNode_C* next;
+//	int val;
+//}LTNode;
+//
+//// C++
+//struct ListNode_CPP
+//{
+//	ListNode_CPP* next;
+//	int val;
+//	void Init()
+//	{
+//		a = 0;
+//		top = capacity = 0;
+//	}
+//
+//	void Push(int x)
+//	{
+//		// ...
+//	}
+//
+//	void Pop()
+//	{
+//		// ...
+//	}
+//
+//	int* a;
+//	int top;
+//	int capacity;
+//};
+//
+//int main()
+//{
+//	LTNode st1;
+//
+//	ListNode_CPP st2;
+//
+//	st2.Init();
+//	st2.Push(1);
+//	st2.Push(2);
+//	st2.Push(3);
+//
+//
+//	return 0;
+//}
+//
+//int main()
+//{
+//
+//Queue q;
+//q.Init();
+//q.Push(1);
+//q.Push(2);
+//q.Push(3);
+//
+//return 0;
+//}
+
+
+//#include "Person.h"
+//
+//int main()
+//{
+//	cout << "static size:" << &size << endl;
+//	cout << "age:" << &age << endl;
+//
+//	//cout << sizeof(Person) << endl;
+//
+//	Person p1; // 类的实例化
+//	Person p2;
+//	Person p3;
+//	p1.PrintPersonInfo();
+//
+//	return 0;
+//}
+
+class A
+{
+public:
+	void PrintA()
+	{
+		cout << _a << endl;
+	}
+
+	void func()
+	{
+		cout << "void A::func()" << endl;
+	}
+//private:
+	char _a;
+};
+
+
+int main()
+{
+	cout << sizeof(A) << endl;
+	A aa1;
+	A aa2;
+	aa1._a = 1;
+	aa2._a = 2;
+	aa1.PrintA();
+	aa2.PrintA();
+
+	A* ptr = nullptr;
+	ptr->func();
+
+	return 0;
+}
+
+
+ //单词和单词之间首字母大写间隔  -- 驼峰法   GetYear
+ //单词全部小写，单词之间_分割              get_year
+ //课堂：驼峰法
+ //a、函数名、类名等所有单词首字母大写 DateMgr
+ //b、变量首字母小写，后面单词首字母大写 dateMgr
+ //c、成员变量，首单词前面加_   _dateMgr
+
+
+//class Date
+//{
+//public:
+//
+//	void Init(Date* const this, int year, int month, int day)
+//	{
+//		this->_year = year;
+//		this->_month = month;
+//		this->_day = day;
+//	}
+//
+//	void Print(Date* const this)
+//	{
+//		cout << this->_year << "-" << this->_month << "-" << this->_day << endl;
+//	}
+//
+//	 实参和形参位置不能显示传递和接收this指针
+//	 但是可以在成员函数内部使用this指针
+//	void Init(int year, int month, int day)
+//	{
+//		this = nullptr;
+//		cout << this << endl;
+//		this->_year = year;
+//		this->_month = month;
+//		this->_day = day;
+//	}
+//
+//	void Print()
+//	{
+//		cout << this << endl;
+//		cout << this->_year << "-" << _month << "-" << _day << endl;
+//	}
+//private:
+//	int _year;     // 年   -> 声明
+//	int _month;    // 月
+//	int _day;      // 日
+//};
+//
+//int main()
+//{
+//	Date d1;
+//	d1.Init(2022, 7, 17);
+//
+//	Date d2;
+//	d2.Init(2022, 7, 18);
+//
+//	d1.Print();
+//	d2.Print();
+//
+//	Date d1;
+//	d1.Init(&d1, 2022, 7, 17);
+//
+//	Date d2;
+//	d2.Init(&d2, 2022, 7, 18);
+//
+//	d1.Print(&d1);
+//	d2.Print(&d2);
+//
+//	return 0;
+//}
+
+
+//class A
+//	{
+//	public:
+//		void PrintA()
+//		{
+//			cout << this << endl;
+//			cout << _a << endl;
+//			cout << _a << endl;
+//			cout << _a << endl;
+//			cout << _a << endl;
+//			cout << _a << endl;
+//			cout << _a << endl;
+//		}
+//	
+//		void Print(int x)
+//		{
+//			cout << this << endl;
+//			cout << "Print()" << endl;
+//		}
+//	private:
+//		int _a;
+//	};
+//	
+//	int main()
+//	{
+//		//A* p = nullptr;
+//		//p->Print();  // C、正常运行
+//		//p->PrintA();   // B、运行崩溃
+//	
+//		A aa;
+//		aa.Print(1);
+//	
+//	
+//		return 0;
+//	}
