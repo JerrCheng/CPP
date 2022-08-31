@@ -1,0 +1,28 @@
+class Sum
+{
+    public:
+    Sum()
+    {
+        _sum+=_i;
+        ++_i;
+    }
+    static int GetSum()
+    {
+        return _sum;
+    }
+    private:
+    static int  _sum;
+    static int  _i;
+};
+
+
+int Sum :: _sum = 0;
+int Sum :: _i = 1;
+
+class Solution {
+public:
+    int Sum_Solution(int n) {
+        Sum a[n];
+        return Sum :: GetSum();
+    }
+};
