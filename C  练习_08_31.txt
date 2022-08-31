@@ -1,0 +1,56 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+//class Time
+//{
+//public:
+//	//Time(int hour = 0)
+//	Time(int hour)
+//	{
+//		_hour = hour;
+//	}
+//private:
+//	int _hour;
+//};
+//
+//class Date
+//{
+//public:
+//	// 要初始化_t 对象，必须通过初始化列表
+//	Date(int year, int hour)
+//		:_t(hour)
+//	{
+//		// 函数体内初始化
+//		_year = year;
+//		//Time t(hour);
+//		//_t = t;
+//	}
+//private:
+//	int _year;
+//	Time _t;
+//};
+
+
+
+class A
+{
+public:
+	A() { ++_scount; }
+	A(const A& t) { ++_scount; }
+	~A() { --_scount; }
+	static int GetACount() { return _scount; }
+private:
+	static int _scount;
+};
+
+int A::_scount = 0;
+void TestA()
+{
+	cout << A::GetACount() << endl;
+	A a1, a2;
+	A a3(a1);
+	cout << A::GetACount() << endl;
+}
