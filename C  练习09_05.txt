@@ -1,0 +1,65 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<iostream>
+#include<string.h>
+#include<assert.h>
+
+
+using namespace std;
+
+//class A
+//{
+//public:
+//	A(int a = 0)
+//		: _a(a)
+//	{
+//		cout << "A():" << this << endl;
+//	}
+//
+//	~A()
+//	{
+//		cout << "~A():" << this << endl;
+//	}
+//
+//private:
+//	int _a;
+//};
+//
+//int main()
+//{
+//	A* p1 = new A;
+//
+//	A* p2 = (A*)malloc(sizeof(A));
+//	if (p2 == nullptr)
+//	{
+//		perror("malloc fail");
+//	}
+//
+//	//new(p2)A;
+//	new(p2)A(10); //给参数
+//
+//	return 0;
+//}
+
+// //////////////////////////////////////////////////////////////////////////////////////////////
+
+// 泛型编程 -- 模板
+// 模板参数(模板类型) -- 类似函数参数(参数对象)
+// typename后面类型名字T是随便取，Ty、K、V，一般是大写字母或者单词首字母大写
+// T 代表是一个模板类型(虚拟类型)
+
+template<typename T>
+void Swap(T& left, T& right)
+{
+	T temp = left;
+	left = right;
+	right = temp;
+
+}
+int main()
+{
+	int i = 0, j = 2;
+	double a = 2.2, b = 2.3;
+	Swap(a, b);
+	Swap(i, j);
+
+}
