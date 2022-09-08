@@ -1,0 +1,17 @@
+s.find(s[i]) : 返回字符串s中从左向右查找s[i]第一次出现的位置；
+s.rfind(s[i]) : 返回字符串s中从右向左查找s[i]第一次出现的位置；
+
+
+class Solution {
+public:
+    int firstUniqChar(string s) {
+        for(int i = 0;i<s.length();++i)
+        {
+            if(s.find(s[i]) == s.rfind(s[i]))
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+};
