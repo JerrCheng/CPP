@@ -1,0 +1,27 @@
+class Solution {
+public:
+    string addStrings(string num1, string num2) {
+        int end1 = num1.size()-1;
+        int end2 = num2.size()-1;
+        int next = 0;
+        string strRet;
+        while(end1 >= 0 || end2 >= 0)
+        {
+            int val1 = end1 >= 0? num1[end1] - '0' : 0;
+            int val2 = end2 >= 0? num2[end2] - '0' : 0;
+            int ret = val2 + val1 + next;
+            next = ret > 9 ? 1: 0;
+            //尾插
+            strRet +=  ('0'+(ret % 10));
+            --end1;
+            --end2;
+        }
+        if(next == 1)
+        {
+            strRet += '1';
+        }
+
+        reverse(strRet.begin(),strRet.end());
+        return strRet;
+    }
+};
