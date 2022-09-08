@@ -21,6 +21,8 @@ public:
             strRet += '1';
         }
 
+
+           //逆置
         reverse(strRet.begin(),strRet.end());
         return strRet;
     }
