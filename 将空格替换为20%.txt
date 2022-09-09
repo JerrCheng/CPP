@@ -1,5 +1,5 @@
 //替换空格
-//先将20%插入，再删除空格
+//法一：先将20%插入，再删除空格
 void string_Test1()
 {
 	string str("wo lai le");
@@ -23,3 +23,19 @@ void string_Test1()
 	cout << str << endl;
 }
 
+
+//法二：创建一个新string，不是空格挪下来，是空格，加20%。时间复杂度为O(n),空间复杂度O（n）。以空间换时间
+	string newstr;
+	for (size_t i = 0; i < str. size(); ++i)
+	{
+		if (str[i] != ' ')
+		{
+			newstr += str[i];
+		}
+		else
+		{
+			newstr += "20%";
+		}
+	}
+
+	cout << newstr << endl;
