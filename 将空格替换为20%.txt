@@ -1,0 +1,25 @@
+//替换空格
+//先将20%插入，再删除空格
+void string_Test1()
+{
+	string str("wo lai le");
+	for (size_t i = 0; i < str.size(); ++i)
+	{
+		if (str[i] == ' ')
+		{
+			str.insert(i, "20%");
+			i += 3;
+		}
+	}
+
+	for (size_t i = 0; i < str.size(); ++i)
+	{
+		if (str[i] == ' ')
+		{
+			str.erase(i, 1);
+		}
+	}
+
+	cout << str << endl;
+}
+
