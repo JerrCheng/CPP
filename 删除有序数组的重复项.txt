@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+    int dst = 0;
+    int src = 1;
+    while(src<nums.size())
+    {
+        if(nums[dst] == nums[src])
+        {
+            src++;
+        }
+        else
+        {
+            dst++;
+            nums[dst] = nums[src];
+            src++;
+        }
+    }
+    nums.resize(dst+1);
+    return dst+1;
+
+    }
+};
