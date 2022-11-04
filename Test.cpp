@@ -1,116 +1,155 @@
 #define _CRT_SECURE_NO_WARNINGS 1
-#include"Date.h"
+#include<iostream>
+#include<assert.h>
+using namespace std;
 
-void TestDate1()
+
+//class A
+//{
+//public:
+//	A(int a = 0)
+//		: _a(a)
+//	{
+//		cout << "A():" << this << endl;
+//	}
+//	~A()
+//	{
+//		cout << "~A():" << this << endl;
+//	}
+//private:
+//	int _a;
+//};
+
+
+
+//int main()
+//{
+//	A* p1 = new A;
+//	A* p2 = (A*)malloc(sizeof(A));
+//	if (p2 == nullptr)
+//	{
+//		perror("malloc fail:");
+//	}
+//	new (p2)A(10);
+//	return 0;
+//}
+
+//template<class T>
+//template<typename T>
+//void Swap(T& left, T& right)
+//{
+//	T tmp = left;
+//	left = right;
+//	right = tmp;
+//}
+//
+//int main()
+//{
+//	int i = 2;
+//	int j = 3;
+//	Swap(i, j);
+//	return 0;
+//}
+
+template<typename T>
+class Stack
 {
-	Date d1(2022, 8, 28);
-	Date d2(d1);
+public:
+	//初始化列表
+	Stack(size_t capacity = 4)
+		:_a(nullptr)
+		, _top(0)
+		, _capacity(0)
 
-	Date d3(2022, 8, 29);
-	d1 = d3;          //d1.operator = (&d1,d3)
-
-	cout << (d1 == d3) << endl;
-	cout << (d1 < d3) << endl;
-	cout << (d1 > d3) << endl;
-	cout << (d1 >= d3) << endl;
-	cout << (d1 <= d3) << endl;
-
-
-}
-
-
-
-void TestDate2()
-{
-	Date d1(2022, 7, 24);
-
-	//Date d2 =d1 + 4;
-	//d2.Print();
-
-	(d1 + 4).Print();
-
-	// 跨月
-	(d1 + 40).Print();
-
-	// 跨年
-	(d1 + 400).Print();
-
-	// 跨闰年
-	(d1 + 4000).Print();
-}
-
-void TestDate3()
-{
-	Date d1(2022, 7, 25);
-	(d1 - 4).Print();
-	(d1 - 40).Print();
-	(d1 - 400).Print();
-	(d1 - 4000).Print();
-
-	Date d2(2022, 7, 25);
-	Date d3(2023, 2, 15);
-
-	cout << d2 - d3 << endl;
-	cout << d3 - d2 << endl;
-}
-
-
-void TestDate5()
-{
-	const char* WeeDayToStr[] = { "周一", "周二", "周三", "周四", "周五", "周六", "周天" };
-	Date d1, d2;
-	int day = 0;
-	int option = 0;
-	do {
-		cout << "*******************************" << endl;
-		cout << " 1、日期加/减天数 2、日期减日期" << endl;
-		cout << " 3、日期->周几   -1、退出" << endl;
-		cout << "*******************************" << endl;
-
-		cout << "请选择:>";
-		cin >> option;
-		if (option == 1)
+	{
+		if (capacity > 0)
 		{
-			cout << "请依次输入日期及天数(减天数就输入负数)：";
-			cin >> d1 >> day;
-			cout << "日期加减天数后的日期：" << d1 + day << endl;
+			_a = new T[capacity];
+			_capacity = capacity;
+			_top = 0;
 		}
-		else if (option == 2)
+	}
+
+	void Push(const T& x)
+	{
+		if (_capacity == _top)
 		{
-			cout << "请依次输入两个日期：";
-			cin >> d1 >> d2;
-			cout << "相差的天数：" << d1 - d2 << endl;
+			size_t newCapacity = _capacity == 0 ? 4 : _capacity * 2;
+
+			//开辟新空间，如果失败，抛异常，转到try catch
+			T* tmp = new T[newCapacity];
+			if (_a)
+			{
+				memcpy(tmp, _a, sizeof(T) * _top);
+				delete[]_a;
+
+			}
+			_a = tmp;
+			_capacity = newCapacity;
 		}
-		else if (option == 3)
-		{
-			cout << "请输入日期：";
-			cin >> d1;
-			Date start(1, 1, 1);
-			int n = d1 - start;
-			int weekDay = 0; // 周一
-			weekDay += n;
-			//weekDay += 9;
-			//cout << "周" << weekDay % 7 + 1 << endl;
-			cout << WeeDayToStr[weekDay % 7] << endl;
-		}
-		else
-		{
-			cout << "无此选项，请重新选择" << endl;
-		}
-	} while (option != -1);
-}
+		_a[_top] = x;
+		++_top;
+	}
+
+	void Pop()
+	{
+		assert(_top > 0);
+		--_top;
+	}
 
 
+	//析构
+	~Stack()
+	{
+		delete[]_a;
+		_a= nullptr;
+		_top = _capacity = 0;
+	}
 
-//Date ret1 = ++d1; // d1.operator++(&d1)
-//Date ret2 = d1++; // d1.operator++(&d2, 0)
+	bool Empty()
+	{
+		return _top == 0;
+	}
+
+	const T& Top()
+	{
+		assert(_top > 0);
+		return _a[_top - 1];
+	}
+
+private:
+	size_t _top;
+	size_t _capacity;
+	T* _a;
+};
 
 int main()
 {
-	TestDate1();
-	TestDate2();
-	TestDate3();
-	TestDate5();
+	try
+	{
+		//类模板都是显示实例化
+		Stack<int> s1;
+		s1.Push(1);
+		s1.Push(2);
+		s1.Push(3);
+		s1.Push(4);
+		s1.Push(5);
+
+		s1.Top();
+		
+		while (!s1.Empty())
+		{
+			cout << s1.Top() << " ";
+			s1.Pop();
+		}
+		cout << endl;
+
+
+	}
+	catch(const exception& e)
+	{
+		cout << e.what() << endl;
+	}
 
 	return 0;
 }

@@ -24,17 +24,6 @@ void func(int a = 200, int b = 20, int c = 2)
 }
 
 
-
-void fun1(int a, double b)
-{
-	cout << "void fun1(int a, double b)" << endl;
-}
-
-
-void fun2(double b, int a)
-{
-	cout << "void fun2(double b, int a)" << endl;
-}
 int main()
 {
 	//int a;
@@ -43,13 +32,10 @@ int main()
 
 	//cout<< "a= "<< a <<endl<<"b= "<< b << endl;
 
-	//func();
-	//func(1);
-	//func(1, 10);
-	//func(1, 10, 100);
-
-	fun1(5,2.2);
-	fun2(2.2,5);
+	func();
+	func(1);
+	func(1, 10);
+	func(1, 10, 100);
 	return 0;
 }
 
