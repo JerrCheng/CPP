@@ -1,0 +1,41 @@
+class Solution {
+public:
+    int evalRPN(vector<string>& tokens) {
+        stack<long long> st;
+        for(auto&str:tokens)
+        {
+            if(str == "+" || str == "-"
+                || str == "*" || str == "/")
+                {
+                    long long right = st.top();
+                    st.pop();
+                    long long left = st.top();
+                    st.pop();
+
+                    switch(str[0])
+                    {
+                        case '+':
+                        st.push(left + right);
+                        break;
+                        case'-':
+                        st.push(left - right);
+                        break;
+                        case'*':
+                        st.push(left * right);
+                        break;
+                        case'/':
+                        st.push(left / right);
+                        break;
+
+
+                    }
+                }
+
+                else
+                {
+                    st.push(stoll(str));
+                }
+        }
+        return st.top();
+    }
+};
