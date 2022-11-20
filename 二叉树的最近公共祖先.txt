@@ -1,0 +1,44 @@
+class Solution {
+public:
+       bool Find(TreeNode* sub,TreeNode* x)
+        {
+                   if(sub == nullptr)
+            return false;
+
+            return (sub == x)
+                  || Find(sub->left,x)
+                  || Find(sub->right,x);
+        }
+         
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(root == nullptr)
+        return nullptr;
+
+        if(root == p || root == q)
+        return root;
+
+        bool pInLeft,pInRight,qInleft,qInRight;
+        pInLeft = Find(root->left,p);
+        pInRight = !pInLeft;
+
+        qInleft = Find(root->left,q);
+        qInRight = !qInleft;
+        
+
+        //1.一个在左，一个在右，root就是最近公共祖先
+        //2.都在左，递归去找左子树
+        //3.都在右，递归去找右子树
+        if((pInLeft && qInRight) || (qInleft && pInRight))
+        return root;
+
+        else if(pInLeft && qInleft)
+        return lowestCommonAncestor(root->left,p,q);
+
+        else if(pInRight && qInRight)
+        return lowestCommonAncestor(root->right,p,q);
+
+        else
+        //理论而言不会走这里
+        return nullptr;
+    }
+};
