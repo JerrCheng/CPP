@@ -1,0 +1,39 @@
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        queue<TreeNode*> q;
+        size_t levelSize = 0;
+        if(root)
+        {
+            q.push(root);
+            levelSize = 1;
+        }
+
+        vector<vector<int>> vv;
+        while(!q.empty())
+        {
+            //控制一层一层出
+            vector<int> v;
+            for(size_t i = 0;i< levelSize;++i)
+            {
+                TreeNode*front = q.front();
+                q.pop();
+                v.push_back(front->val);
+
+                if(front->left)
+                q.push(front->left);
+
+                if(front->right)
+                q.push(front->right);
+            }
+
+            vv.push_back(v);
+
+            //当前层出完了，下一层都进队列，队列的size就是下一层的数据个数
+            levelSize = q.size();
+        }
+        reverse(vv.begin(),vv.end());
+
+        return vv;
+    }
+};
