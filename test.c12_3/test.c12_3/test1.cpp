@@ -1,5 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include<iostream>
+#include<assert.h>
 using namespace std;
 //class Date
 //{
@@ -108,6 +109,10 @@ using namespace std;
 //////////////////////////////////////////////////////////////////////////////////////////////////
 class Date
 {
+	// 友元函数 -- 这个函数内部可以使用Date对象访问私有保护成员
+	friend ostream& operator<<(ostream& out, const Date& d);
+	friend istream& operator>>(istream& in, Date& d);
+
 public:
 	Date(int year = 1,int month = 1,int day = 1 )
 	{
@@ -117,6 +122,20 @@ public:
 		_day   = day;
 	}
 
+
+	bool CheckDate()
+	{
+		if (_year >= 1
+			&& _month > 0 && _month < 13
+			&& _day > 0 && _day <= GetMonthDay(_year, _month))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 	int GetMonthDay(int year, int month)
 	{
 		static int days[13] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
@@ -157,14 +176,89 @@ public:
 	}
 
 
-	int operator-(const Date& x)
+	Date& operator= (const Date& x)
 	{
+		if (this != &x)
+		{
+			_year = x._year;
+			_month = x._month;
+			_day = x._day;
 
+		}
+	
+	}
+
+	int operator-(const Date& d)
+	{
+		int flag = 1;
+		Date max = *this;
+		Date min = d;
+		if (*this < d)
+		{
+			max = d;
+			min = *this;
+			flag = -1;
+		}
+		int n = 0;
+		while (min != max)
+		{
+			++min;
+			++n;
+		}
+		return n * flag;
 	}
 
 
+	Date& operator++() // 前置
+	{
+		//*this += 1;
+		//return *this;
+
+		return *this += 1;
+	}
+
+	Date operator++(int) // 后置
+	{
+		Date tmp(*this);
+		*this += 1;
+
+		return tmp;
+	}
+	// d1 + 100
+	Date operator+(int day) const
+	{
+		//Date ret(*this);
+		Date ret = *this;
+		ret += day;
+
+		return ret;
+	}
+
+	// d2 += d1 += 100
+	Date& operator+=(int day)
+	{
+		if (day < 0)
+		{
+			return *this -= -day;
+		}
+
+		_day += day;
+		while (_day > GetMonthDay(_year, _month))
+		{
+			_day -= GetMonthDay(_year, _month);
+			++_month;
+			if (_month == 13)
+			{
+				_year++;
+				_month = 1;
+			}
+		}
+
+		return *this;
+	}
+
 	// d1 + 100;
-	Date operator+(int day)
+	Date& operator+(int day)
 	{
 		Date ret(*this);
 		ret._day += day;
@@ -182,11 +276,81 @@ public:
 		return ret;
 	}
 
-	bool operator<(const Date& x);
-	bool operator>(const Date& x);
-	bool operator>=(const Date& x);
-	bool operator<=(const Date& x);
-	bool operator!=(const Date& x);
+	Date operator-(int day)
+	{
+		Date ret (*this);
+		ret -= day;
+		return ret;
+	}
+
+
+
+	Date& operator-=(int day)
+	{
+		if (day < 0)
+		{
+			return *this += -day;
+		}
+		_day -= day;
+		while (_day <= 0)
+		{
+			--_month;
+			if (_month <= 0)
+			{
+				--_year;
+				_month = 12;
+			}
+			_day += GetMonthDay(_year, _month);
+		}
+		return *this;
+	}
+
+
+	bool operator== (const Date& d) const
+	{
+		return _year == d._year
+			&& _month == d._month
+			&& _day == d._day;
+	}
+
+
+	// d1 != d2
+	bool operator!=(const Date& d) const
+	{
+		return !(*this == d);
+	}
+
+	// d1 > d2
+	bool operator>(const Date& d) const
+	{
+		if ((_year > d._year)
+			|| (_year == d._year && _month > d._month)
+			|| (_year == d._year && _month == d._month && _day > d._day))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	bool operator>=(const Date& d) const
+	{
+		return (*this > d) || (*this == d);
+	}
+
+	bool operator<(const Date& d) const
+	{
+		return !(*this >= d);
+	}
+
+	bool operator<=(const Date& d) const
+	{
+		return !(*this > d);
+	}
+
+
 
 
 private:
@@ -195,6 +359,22 @@ private:
 	int _day;
 };
 
+// 流插入重载
+inline ostream& operator<<(ostream& out, const Date& d)
+{
+	out << d._year << "年" << d._month << "月" << d._day << "日" << endl;
+	return out;
+}
+
+// 流提取重载
+inline istream& operator>>(istream& in, Date& d)
+{
+	in >> d._year >> d._month >> d._day;
+
+	assert(d.CheckDate());
+
+	return in;
+}
 
 
 int main()
