@@ -1,5 +1,5 @@
 #pragma once
-namespace bit
+namespace chr
 {
 	template<class T>
 	struct list_node
@@ -18,7 +18,7 @@ namespace bit
 	// typedef __list_iterator<T, T&, T*>             iterator;
 	// typedef __list_iterator<T, const T&, const T*> const_iterator;
 
-	// 像指针一样的对象
+	// 鍍忔寚閽堜竴鏍风殑瀵硅薄
 	template<class T, class Ref, class Ptr>
 	struct __list_iterator
 	{
@@ -34,7 +34,6 @@ namespace bit
 
 		Node* _node;
 
-		// 休息到17：02继续
 		__list_iterator(Node* node)
 			:_node(node)
 		{}
@@ -138,7 +137,7 @@ namespace bit
 
 		void empty_init()
 		{
-			// 创建并初始化哨兵位头结点
+			// 鍒涘缓骞跺垵濮嬪寲鍝ㄥ叺浣嶅ご缁撶偣
 			_head = new Node;
 			_head->_next = _head;
 			_head->_prev = _head;
