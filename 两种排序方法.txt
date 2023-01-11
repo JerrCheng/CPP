@@ -1,0 +1,42 @@
+一个按照字母ASCII值，另一个按照字典顺序
+
+
+
+#include<iostream>
+#include<string>
+#include<vector>
+using namespace std;
+int main() {
+    int n;
+    cin >> n;
+    vector<string> v;
+    v.resize(n);
+    bool len = true;
+    bool dis = true;
+    for (auto& str : v)
+        cin >> str;
+
+    for (size_t i = 1; i < v.size(); ++i) {
+        if (v[i - 1].size() >= v[i].size()) {
+            len = false;
+            break;
+        }
+    }
+
+    for (size_t i = 1; i < v.size(); ++i) {
+        if (v[i - 1] >= v[i]) {
+            dis = false;
+            break;
+        }
+    }
+    if (len && dis)
+        cout << "both" << endl;
+    else if (!len && dis)
+        cout << "lexicographically" << endl;
+    else if (len && !dis)
+        cout << "lengths" << endl;
+    else if (!len && !dis)
+        cout << "none" << endl;
+
+    return 0;
+}
