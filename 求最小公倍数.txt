@@ -26,3 +26,4 @@ while(cin >> a >> b){
 cout << a*b/gcd(a,b) <<endl;
 }
 return 0;
+}
