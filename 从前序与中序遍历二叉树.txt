@@ -1,0 +1,27 @@
+class Solution {
+public:
+TreeNode* _buildTree(vector<int>& preorder, vector<int>& inorder,int& prei,int inbegin,int inend) {
+        if(inbegin > inend)
+        return nullptr;
+
+        TreeNode* root = new TreeNode(preorder[prei++]);
+        //分割中序
+        int ini = inbegin;
+        while(ini <= inend)
+        {
+            if(inorder[ini] == root->val)
+                break;
+            else
+                ++ini;
+        }
+
+        root->left = _buildTree(preorder,inorder,prei,inbegin,ini-1);
+        root->right = _buildTree(preorder,inorder,prei,ini+1,inend);
+        return root;
+        
+    }
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        int i = 0;
+        return _buildTree(preorder,inorder,i,0,inorder.size()-1);
+    }
+};
