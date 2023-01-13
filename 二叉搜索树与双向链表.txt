@@ -1,0 +1,28 @@
+class Solution {
+public:
+	void InOrderCovert(TreeNode* cur,TreeNode*&prev)
+	{
+		if ((cur == nullptr)) 
+		return ;
+
+		InOrderCovert(cur->left,prev);
+		cur->left = prev;
+		if(prev)
+		prev->right = cur;
+		
+		prev = cur;
+		InOrderCovert(cur->right,prev);
+	}
+    TreeNode* Convert(TreeNode* pRootOfTree) {
+		TreeNode* prev = nullptr;
+		InOrderCovert(pRootOfTree,prev);
+
+		TreeNode*head = pRootOfTree;
+		while (head && head->left) 
+		
+			head=head->left;
+		
+		return  head;
+        
+    }
+};
