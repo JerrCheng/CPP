@@ -1,0 +1,15 @@
+	map<string, int> countMap;
+	for (auto& str : arr)
+	{
+		// 1、str不在countMap中，插入pair(str, int()),然后在对返回次数++
+		// 2、str在countMap中，返回value(次数)的引用，次数++;
+		countMap[str]++;
+	}
+
+	map<string, int>::iterator it = countMap.begin();
+	while (it != countMap.end())
+	{
+		cout << it->first << ":" << it->second << endl;
+		++it;
+	}
+	cout << endl;
