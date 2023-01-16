@@ -1,0 +1,34 @@
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        
+        // 空树，直接返回
+        vector<int> vRet;
+        if(nullptr == root)
+            return vRet;
+        
+        TreeNode* pCur = root;
+        stack<TreeNode*> s;
+        while(pCur || !s.empty())
+        {
+            // 找以pCur为根的二叉树最左侧的节点，并将所经路径中的节点入栈
+            while(pCur)
+            {
+                s.push(pCur);
+                pCur = pCur->left;
+            }
+ 
+            pCur = s.top();
+            
+            // pCur左子树为空，相当于左子树已经访问过了，可以直接访问以pCur为根的二叉树的根节点
+            vRet.push_back(pCur->val);
+            s.pop();
+            
+            // 以pCur为根的二叉树的左子树已经遍历完，根节点已经遍历，
+            // 将pCur的右子树当成一棵二叉树来遍历
+            pCur = pCur->right;
+        }
+ 
+        return vRet;
+    }
+};
