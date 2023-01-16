@@ -1,0 +1,42 @@
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        // 空树直接返回
+        vector<int> vRet;
+        if(nullptr == root)
+            return vRet;
+        
+        TreeNode* pCur = root;
+        TreeNode* pPrev = nullptr;
+        stack<TreeNode*> s;
+        while(pCur || !s.empty())
+        {
+            // 找以pCur为根的二叉树最左侧的节点，并将所经路径中的节点入栈
+            while(pCur)
+            {
+                s.push(pCur);
+                pCur = pCur->left;
+            }
+ 
+            TreeNode* pTop = s.top();
+            
+            // pTop左子树已经访问
+            // 如果pTop的右子树是空，或者右子树已经访问过了，就可以访问pTop
+            if(nullptr == pTop->right || pPrev == pTop->right)
+            {
+                vRet.push_back(pTop->val);
+                s.pop();
+                
+                // 将刚刚访问过的节点标记起来
+                pPrev = pTop;
+            }
+            else
+            {
+                // 如果右子树没有访问，将右子树当成一棵新的二叉树访问
+                pCur = pTop->right;
+            }
+        }
+ 
+        return vRet;
+    }
+};
