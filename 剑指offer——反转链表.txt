@@ -1,0 +1,55 @@
+//三指针法
+
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        	if (head == nullptr || head->next == nullptr) //链表为空或链表只有一个结点，无需反转
+			return head;
+		ListNode* left = head;
+		ListNode* mid = left->next;
+		ListNode* right = mid->next;
+		while (right != nullptr)
+		{
+			//mid指向left
+			mid->next = left;
+			//left,mid和right统一向右移动
+			left = mid;
+			mid = right;
+			right = right->next;
+		}
+		mid->next = left; //mid指向left
+		head->next = nullptr; //第一个结点指向nullptr
+		return mid; //返回新链表的表头，也就是此时的mid
+
+    }
+};
+
+
+//////头插法
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if(head == nullptr || head->next == nullptr)
+        return head;
+
+        ListNode* newhead = nullptr;
+    	while (head != nullptr)
+		{
+			//从原链表获取第一个结点
+			ListNode* p = head;
+			head = head->next;
+			//将该结点头插到新链表
+			p->next = newhead;
+			newhead = p;
+		}
+		return newhead; //返回新链表的表头
+    }
+};
