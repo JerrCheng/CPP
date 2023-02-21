@@ -1,0 +1,53 @@
+//递归
+class Solution {
+public:
+    vector<int> reversePrint(ListNode* head) {
+        	vector<int> v;
+		dfs(v, head); //递归进行输出
+		return v;
+
+    }
+    	
+	
+
+	//递归函数
+	void dfs(vector<int>& v, ListNode*& pNode)
+	{
+		if (pNode == NULL) //传入结点地址为空，递归结束的标志
+			return;
+		dfs(v, pNode->next); //先递归
+		v.push_back(pNode->val); //递归结束后（碰到NULL返回）再进行结点值输出
+	}
+
+};
+
+
+
+//用栈存储，打印到vector
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> reversePrint(ListNode* head) {
+        stack<int> st;
+        while(head != NULL)
+        {
+            st.push(head->val);
+            head = head->next;
+        }
+
+        vector<int> v;
+        while(!st.empty())
+        {
+            v.push_back(st.top());
+            st.pop();
+        }
+        return v;
+    }
+};
