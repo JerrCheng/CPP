@@ -1,0 +1,25 @@
+输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有奇数在数组的前半部分，所有偶数在数组的后半部分。
+
+先从 nums 左侧开始遍历，如果遇到的是奇数，就表示这个元素已经调整完成了，继续从左往右遍历，直到遇到一个偶数。然后从 nums 右侧开始遍历，如果遇到的是偶数，就表示这个元素已经调整完成了，继续从右往左遍历，直到遇到一个奇数。交换这个偶数和奇数的位置，并且重复两边的遍历，直到在中间相遇，nums 调整完成。
+
+
+
+class Solution {
+public:
+    vector<int> exchange(vector<int>& nums) {
+          int left = 0, right = nums.size() - 1;
+        while (left < right) {
+            while (left < right && nums[left] % 2 == 1) {
+                left++;
+            }
+            while (left < right && nums[right] % 2 == 0) {
+                right--;
+            }
+            if (left < right) {
+                swap(nums[left++], nums[right--]);
+            }
+        }
+        return nums;
+
+    }
+};
